@@ -46,8 +46,9 @@
   // ── Create Stack Button ──
   const createStackBtn = document.getElementById('create-stack-btn');
   if (createStackBtn) {
-    createStackBtn.addEventListener('click', () => {
-      showToast('Redirecting to CashKaro to create your stack… ✦');
+    createStackBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = 'create.html';
     });
   }
 

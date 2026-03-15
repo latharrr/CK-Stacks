@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Your Stack | CK Stacks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Create page specific styles */
+    .create-wrap {
+      max-width: 600px;
+      margin: 100px auto 60px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+    .create-header {
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .create-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .create-sub {
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+
+    /* Step Card */
+    .builder-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 24px;
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
+    }
+    .input-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    .ck-input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 15px;
+      transition: var(--transition);
+    }
+    .ck-input:focus {
+      outline: none;
+      border-color: var(--accent-purple);
+      background: rgba(99,102,241,0.05);
+    }
+    .ck-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* URL Slots */
+    .url-slots {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .url-slot {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .slot-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(99,102,241,0.15);
+      color: var(--accent-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Generating State */
+    .generating-state {
+      display: none;
+      text-align: center;
+      padding: 40px 0;
+    }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid rgba(99,102,241,0.2);
+      border-top-color: var(--accent-purple);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .gen-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .gen-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 999px;
+      margin-top: 24px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--gradient-main);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+
+  <header class="ck-header">
+    <a href="/" style="text-decoration:none" class="ck-logo">
+      <div class="ck-logo-icon">₹</div>
+      <span class="ck-logo-text">CashKaro <span class="ck-logo-badge">Stacks</span></span>
+    </a>
+  </header>
+
+  <main class="create-wrap">
+    
+    <div class="create-header">
+      <h1 class="create-title">Build Your Stack</h1>
+      <p class="create-sub">Paste up to 5 product links. Our AI will pull the images, titles, and cashback automatically.</p>
+    </div>
+
+    <div class="builder-card" id="form-card">
+      <div class="input-group">
+        <label class="input-label">Stack Name</label>
+        <input type="text" class="ck-input" id="stack-name" placeholder="e.g. My B.Tech CSE Desk Setup" value="My B.Tech CSE Desk Setup" />
+      </div>
+
+      <div class="input-group" style="margin-top: 32px;">
+        <label class="input-label">Product URLs (Amazon, Myntra, Flipkart, etc.)</label>
+        <div class="url-slots">
+          <div class="url-slot">
+            <div class="slot-num">1</div>
+            <input type="text" class="ck-input" value="https://www.amazon.in/LG-Ultragear-24-inch-Monitor/" readonly />
+          </div>
+          <div class="url-slot">
+            <div class="slot-num">2</div>
+            <input type="text" class="ck-input" value="https://www.amazon.in/Sony-WH-1000XM5-Wireless-Headphones/" readonly />
+          </div>
+          <div class="url-slot">
+            <div class="slot-num">3</div>
+            <input type="text" class="ck-input" value="https://robu.in/product/esp32-38-pin-devkit-v1-board/" readonly />
+          </div>
+          <div class="url-slot">
+            <div class="slot-num">4</div>
+            <input type="text" class="ck-input" value="https://www.amazon.in/Logitech-MX-Master-3S/" readonly />
+          </div>
+          <div class="url-slot">
+            <div class="slot-num">5</div>
+            <input type="text" class="ck-input" value="https://www.myntra.com/laptop-stands/" readonly />
+          </div>
+        </div>
+      </div>
+
+      <button class="buy-btn featured-btn" id="generate-btn" style="margin-top: 32px;">
+        <span>✦ Let AI Generate My Stack</span>
+      </button>
+    </div>
+
+    <!-- Generating State UI -->
+    <div class="builder-card generating-state" id="gen-state">
+      <div class="spinner"></div>
+      <div class="gen-text" id="gen-status">Scraping product data...</div>
+      <div class="gen-sub">Looking up prices and CashKaro cashback rates</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const btn = document.getElementById('generate-btn');
+    const formCard = document.getElementById('form-card');
+    const genState = document.getElementById('gen-state');
+    const statusText = document.getElementById('gen-status');
+    const progress = document.getElementById('progress');
+
+    btn.addEventListener('click', () => {
+      formCard.style.display = 'none';
+      genState.style.display = 'block';
+
+      // Fake AI generation sequence
+      setTimeout(() => { progress.style.width = '30%'; }, 100);
+      
+      setTimeout(() => {
+        statusText.textContent = 'Writing descriptions...';
+        progress.style.width = '60%';
+      }, 1200);
+
+      setTimeout(() => {
+        statusText.textContent = 'Applying cashback tracking links...';
+        progress.style.width = '90%';
+      }, 2400);
+
+      setTimeout(() => {
+        progress.style.width = '100%';
+        statusText.textContent = 'Done! Redirecting... ✦';
+        
+        // Go to the finished stack page
+        setTimeout(() => {
+          window.location.href = 'stack.html';
+        }, 600);
+      }, 3400);
+    });
+  </script>
+</body>
+</html>
