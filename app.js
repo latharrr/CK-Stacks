@@ -19,7 +19,6 @@
   const buyButtons = document.querySelectorAll('.buy-btn, .full-stack-btn');
   buyButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      e.preventDefault();
       // Ripple effect
       const ripple = document.createElement('span');
       ripple.style.cssText = `
@@ -32,14 +31,14 @@
       btn.appendChild(ripple);
       setTimeout(() => ripple.remove(), 600);
 
-      // Show toast
+      // Show toast (link opens naturally via href)
       const productCard = btn.closest('.product-card');
       if (productCard) {
         const productName = productCard.querySelector('.product-name')?.textContent || 'product';
         const store = productCard.querySelector('.product-store')?.textContent || 'the store';
         showToast(`Opening ${productName} on ${store} with cashback! 🎉`);
       } else {
-        showToast('Building your cart with CashKaro cashback on all 5 items! 🛒');
+        showToast('Opening all items with CashKaro cashback! 🛒');
       }
     });
   });
@@ -47,9 +46,8 @@
   // ── Create Stack Button ──
   const createStackBtn = document.getElementById('create-stack-btn');
   if (createStackBtn) {
-    createStackBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      showToast('Redirecting to Stack Builder… ✦');
+    createStackBtn.addEventListener('click', () => {
+      showToast('Redirecting to CashKaro to create your stack… ✦');
     });
   }
 
